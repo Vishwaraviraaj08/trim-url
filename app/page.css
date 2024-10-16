@@ -269,3 +269,9 @@ a.ssolink {
     color: #ffffff;
 }
 
+
+@media (max-width: 768px) {
+    .buttonn{
+        width: 170px;
+    }
+}
