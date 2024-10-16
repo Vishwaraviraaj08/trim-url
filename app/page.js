@@ -12,7 +12,7 @@ const FormSection = () => {
 
 
     function submitForm() {
-        fetch('/add-url', {
+        fetch('/api/add-url', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ const FormSection = () => {
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('URL added successfully. Deployed Url: https://trimurl.com/' + endpoint);
+                    alert('URL added successfully. Deployed Url: https://clipurl.vercel.app/' + endpoint);
                 } else {
                     alert('Error adding URL');
                 }
@@ -33,7 +33,7 @@ const FormSection = () => {
     }
 
     function checkEndpointAvailability() {
-        fetch('/check-endpoint', {
+        fetch('/api/check-endpoint', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ const FormSection = () => {
                     alert('Endpoint available');
 
                 } else {
-                    alert('Endpoint not available')
+                    alert('Endpoint is taken by someone else. Please try another one.')
                     setAvailable(false);
                 }
             })
@@ -104,7 +104,7 @@ const FormSection = () => {
                         <div className="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
                             <h1>
                                 <a href="/" rel="dofollow">
-                                    Trim URL
+                                    Clip URL
                                 </a>
                             </h1>
                         </div>
@@ -121,8 +121,8 @@ const FormSection = () => {
                                                 alignItems: 'center',
                                                 gap: '20px'
                                             }}>
-                                                <label style={{fontSize: '18px'}}>
-                                                    https://trimurl.com/
+                                                <label style={{fontSize: '16px'}}>
+                                                    https://clipurl.vercel.app/
                                                 </label>
                                                 <input type="text" name="endpoint" style={{fontSize:'18px'}} onChange={
                                                     (e) => {
@@ -149,6 +149,8 @@ const FormSection = () => {
                                                     setUrl(e.target.value)
                                                 }
                                             }/>
+                                            <label style={{marginTop:'20px'}}>After publishing the link, it will be like </label>
+                                            <label>https://clipurl.vercel.app/{endpoint}</label>
                                         </div>
 
                                         <div className="field padding-bottom--24" >
