@@ -12,6 +12,10 @@ const FormSection = () => {
 
 
     function submitForm() {
+        if (!available || !endpoint || !url) {
+            alert('Please fill all the fields');
+            return;
+        }
         fetch('/api/add-url', {
             method: 'POST',
             headers: {
@@ -33,6 +37,10 @@ const FormSection = () => {
     }
 
     function checkEndpointAvailability() {
+        if (!endpoint) {
+            alert('Please enter an endpoint');
+            return;
+        }
         fetch('/api/check-endpoint', {
             method: 'POST',
             headers: {
