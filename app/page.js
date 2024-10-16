@@ -21,7 +21,7 @@ const FormSection = () => {
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('URL added successfully');
+                    alert('URL added successfully. Deployed Url: https://trimurl.com/' + endpoint);
                 } else {
                     alert('Error adding URL');
                 }
