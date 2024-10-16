@@ -61,7 +61,7 @@ const FormSection = () => {
 
     return (
         <>
-            <div className="login-root" style={{marginTop:'100px'}}>
+            <div className="login-root" style={{marginTop:'70px'}}>
                 <div className="box-root flex-flex flex-direction--column" style={{ minHeight: "100vh", flexGrow: 1 }}>
                     <div className="loginbackground box-background--white padding-top--64">
                         <div className="loginbackground-gridContainer">
