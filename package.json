@@ -3,15 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"npm run start:server\" \"npm run start:frontend\"",
-    "start:server": "node server.js",
-    "start:frontend": "next start",
-
+    "start": "node server.js",
     "dev": "next dev",
     "build": "next build",
     "lint": "next lint"
   },
   "dependencies": {
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
