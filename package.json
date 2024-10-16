@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
+    "start": "concurrently \"npm run start:server\" \"npm run start:frontend\"",
+    "start:server": "node server.js",
+    "start:frontend": "next start",
+
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -17,5 +20,8 @@
     "react": "^18",
     "react-dom": "^18",
     "serverless-http": "^3.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
   }
 }
