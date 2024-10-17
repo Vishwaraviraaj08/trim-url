@@ -113,7 +113,7 @@ a {
     box-shadow: rgba(60, 66, 87, 0.12) 0px 7px 14px 0px,
     rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
 }
-span {
+.textSpan {
     display: block;
     font-size: 20px;
     line-height: 28px;
@@ -232,7 +232,7 @@ a.ssolink {
 
 
 .buttonn {
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 0.8em 1em;
     border: 2px solid #5469d4;
     position: relative;
@@ -274,4 +274,55 @@ a.ssolink {
     .buttonn{
         width: 170px;
     }
+}
+
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #5469d4;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    display: block;
+    font-size: 20px;
+    line-height: 28px;
+}
+
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+
+
+.submitBtn{
+    background-color: rgb(84, 105, 212);
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 1px 0px, rgb(84, 105, 212) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(60, 66, 87, 0.08) 0px 2px 5px 0px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    line-height: 28px;
+    padding: 8px 16px;
+    width: 100%;
+    min-height: 44px;
+    border: unset;
+    border-radius: 4px;
+    outline-color: rgb(84 105 212 / 0.5);
+}
+
+.spinnerSubmit {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #ffffff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
 }

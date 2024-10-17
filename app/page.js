@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import './page.css';
+import Swal from 'sweetalert2';
 
 
 const FormSection = () => {
@@ -9,13 +10,16 @@ const FormSection = () => {
     const [available, setAvailable] = useState(false);
     const [endpoint, setEndpoint] = useState('');
     const [url, setUrl] = useState('');
+    const [checkLoading, setCheckLoading] = useState(false);
+    const [submitLoading, setSubmitLoading] = useState(false);
 
 
     function submitForm() {
         if (!available || !endpoint || !url) {
-            alert('Please fill all the fields');
+            Swal.fire('Oops!', 'Please fill all the fields', 'question');
             return;
         }
+        setSubmitLoading(true)
         fetch('/api/add-url', {
             method: 'POST',
             headers: {
@@ -24,23 +28,31 @@ const FormSection = () => {
             body: JSON.stringify({ endpoint:endpoint, redirectUrl: url }),
         }).then(response => response.json())
             .then(data => {
+                setSubmitLoading(false)
                 if (data.success) {
-                    alert('URL added successfully. Deployed Url: https://clipurl.vercel.app/' + endpoint);
+                    Swal.fire('Great!', `
+                    URL added successfully. Deployed Url: <a href="https://clipurl.vercel.app/${endpoint}" target="_blank">https://clipurl.vercel.app/${endpoint}</a>
+                    `, 'success');
                 } else {
-                    alert('Error adding URL');
+                    Swal.fire('Oops!', 'Error adding Url', 'error');
                 }
             })
             .catch((error) => {
+                setSubmitLoading(false)
                 console.error('Error:', error);
                 alert('Error adding URL');
             });
     }
 
     function checkEndpointAvailability() {
+        setEndpoint(endpoint.trim().toLowerCase());
         if (!endpoint) {
-            alert('Please enter an endpoint');
+            Swal.fire('Oops!', 'Please enter an endpoint', 'question');
             return;
         }
+
+        setCheckLoading(true)
+
         fetch('/api/check-endpoint', {
             method: 'POST',
             headers: {
@@ -49,19 +61,21 @@ const FormSection = () => {
             body: JSON.stringify({ endpoint }),
         }).then(response => response.json())
             .then(data => {
+                setCheckLoading(false)
                 if (data.available) {
                     setAvailable(true);
                     setTimeout(() => {
                         document.getElementsByName('url')[0].focus();
                     }, 200);
-                    alert('Endpoint available');
+                    Swal.fire('Great!', 'Endpoint is available', 'success');
 
                 } else {
-                    alert('Endpoint is taken by someone else. Please try another one.')
+                    Swal.fire('Oops!', 'Endpoint is taken by someone else. Please try another one.', 'error')
                     setAvailable(false);
                 }
             })
             .catch((error) => {
+                setCheckLoading(false)
                 console.error('Error:', error);
                 setAvailable(false);
             });
@@ -119,7 +133,7 @@ const FormSection = () => {
                         <div className="formbg-outer">
                             <div className="formbg">
                                 <div className="formbg-inner padding-horizontal--48">
-                                    <span className="padding-bottom--15">Shrink Your URL to ur custom endpoint</span>
+                                    <span className="padding-bottom--15 textSpan">Shrink Your URL to ur custom endpoint</span>
                                     <div id="stripe-login">
                                         <div className="field padding-bottom--24">
                                             <label htmlFor="email">Endpoint</label>
@@ -139,15 +153,27 @@ const FormSection = () => {
                                                     }
                                                 }/>
                                             </div>
-                                            <div style={{display:'flex', justifyContent:'end', alignItems:'center', marginTop:'20px'}}>
-                                                <label style={{paddingRight:'10px'}}>Check the availability of the endpoint</label>
-                                                <button className={"buttonn"} style={{cursor:'pointer'}} onClick={ checkEndpointAvailability }> Check </button>
+                                            <div style={{
+                                                display: 'flex',
+                                                justifyContent: 'end',
+                                                alignItems: 'center',
+                                                marginTop: '20px'
+                                            }}>
+                                                <label style={{paddingRight: '10px'}}>Check the availability of the
+                                                    endpoint</label>
+
+                                                <button className={"buttonn"} style={{cursor: 'pointer'}}
+                                                        onClick={checkEndpointAvailability} disabled={checkLoading}>
+                                                    {checkLoading ? <span
+                                                        className="spinner"></span> : "Check"}
+                                                </button>
+
                                             </div>
 
                                         </div>
                                         <div className="field padding-bottom--24">
                                             <div className="grid--50-50">
-                                            <label htmlFor="password">Url</label>
+                                                <label htmlFor="password">Url</label>
 
                                             </div>
                                             <input type="text" name="url"
@@ -161,8 +187,13 @@ const FormSection = () => {
                                             <label>https://clipurl.vercel.app/{endpoint}</label>
                                         </div>
 
-                                        <div className="field padding-bottom--24" >
-                                            <input type="submit" name="submit" value="Publish" onClick={submitForm} disabled={!available} />
+                                        <div className="field padding-bottom--24">
+                                            <button onClick={submitForm} disabled={!available || submitLoading}
+                                                    className={"submitBtn"}
+                                            >
+                                                {submitLoading ? <span
+                                                    className="spinnerSubmit"></span> : "Publish"}
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
