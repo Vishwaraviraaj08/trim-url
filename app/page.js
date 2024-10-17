@@ -65,9 +65,10 @@ const FormSection = () => {
                 if (data.available) {
                     setAvailable(true);
                     setTimeout(() => {
+                        Swal.fire('Great!', 'Endpoint is available', 'success');
                         document.getElementsByName('url')[0].focus();
                     }, 200);
-                    Swal.fire('Great!', 'Endpoint is available', 'success');
+
 
                 } else {
                     Swal.fire('Oops!', 'Endpoint is taken by someone else. Please try another one.', 'error')

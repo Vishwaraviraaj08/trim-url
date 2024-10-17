@@ -245,6 +245,9 @@ a.ssolink {
     z-index: 1;
     font-family: inherit;
     color: #5469d4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .buttonn::before {
@@ -279,7 +282,7 @@ a.ssolink {
 
 .spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #5469d4;
+    border-left-color: #ffffff;
     border-radius: 50%;
     width: 24px;
     height: 24px;
